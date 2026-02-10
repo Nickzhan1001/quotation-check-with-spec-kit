@@ -1,0 +1,48 @@
+[Match: alwaysApply]
+
+# spec-kit Runbook（SOP 強制一致性）
+
+本規則的目的：當使用者要求執行 spec-kit 的 dev-spec 或 task-breakdown 時，強制其他 Agent 遵守相同的決策規則與輸出契約。
+
+適用範圍（重要）：
+- 只有在對話內容涉及以下任一情境時才套用本規則：
+  - 使用者引用或要求執行 `docs/prompt/spec-kit-dev-spec.prompt.md`
+  - 使用者引用或要求執行 `docs/prompt/spec-kit.task-breakdown.prompt.md`
+  - 使用者明確說「spec-kit」且目標是產出 spec 或 tasks
+- 若非上述情境，請忽略本規則。
+
+---
+
+## 權威來源
+- 規則契約以兩份 Prompt 為準：
+  - `docs/prompt/spec-kit-dev-spec.prompt.md`
+  - `docs/prompt/spec-kit.task-breakdown.prompt.md`
+- SOP 參考：`docs/prompt/spec-kit-runbook.prompt.md`
+
+## 決策規則（必遵守）
+- 僅使用 Prompt 指定的 Input Boundary 作為事實來源。
+- 不得新增、發明、推測需求；不得重設計流程/系統。
+- 不得補齊未定義行為；一律標示「未定義」或「Blocked / 未定義」。
+- 不輸出技術實作細節（程式碼、框架語法、endpoint、DB schema）。
+
+## 輸出契約（必遵守）
+
+### A) Spec（dev-spec）
+- 只能產出 4 份檔案，且路徑固定在 `analysis_context/spec/`：
+  - `00-overview.spec.md`（H1：`# 00 Overview`）
+  - `01-routing-pages.spec.md`（H1：`# 01 Routing & Pages`）
+  - `02-frontend.spec.md`（H1：`# 02 Frontend Behavior`）
+  - `03-backend.spec.md`（H1：`# 03 Backend Responsibility`）
+- 產出順序強制：00 → 01 → 02 → 03
+
+### B) Tasks（task-breakdown）
+- 輸出至：
+  - `analysis_context/spec/tasks/frontend/`
+  - `analysis_context/spec/tasks/backend/`
+- 檔名格式：`<role>-task-<running-number>-<short-description>.md`
+- 每檔必含固定章節：
+  - `# Task Summary`
+  - `# Source Spec`
+  - `# Responsibility`
+  - `# Acceptance Criteria`
+  - `# Notes`

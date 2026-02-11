@@ -158,6 +158,17 @@
               "fill": "#FFFFFF06",
               "width": 160,
               "height": 160
+            },
+            {
+              "type": "path",
+              "id": "HldBV",
+              "x": 0,
+              "y": 0,
+              "name": "Wave Edge",
+              "geometry": "M0 0l600 0q10 135 20 270t20 270-20 270 20 270l-640 0z",
+              "fill": "$accent-primary",
+              "width": 640,
+              "height": "fill_container(0)"
             }
           ]
         },

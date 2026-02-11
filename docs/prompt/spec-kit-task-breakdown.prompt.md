@@ -41,6 +41,7 @@ analysis_context/spec/
 - 不得重新設計流程或系統
 - 不得補齊 Spec 未定義的行為
 - 若 Spec 中標示為「未定義」，任務必須同步標示為「受阻／未定義」
+- 每個任務之「對應頁面名稱」必須與 01-routing-pages.spec.md 之頁面名稱一致（限英文）
 
 ---
 
@@ -76,10 +77,11 @@ analysis_context/spec/tasks/
 
 # 任務內容結構（固定）
 
-每一個任務檔案必須包含：
+每一個任務檔案必須包含以下章節（標題需完全一致）：
 
 - 任務摘要
 - 來源 Spec
+- **對應頁面名稱**（必填）：列出該任務對應之頁面，使用 01-routing-pages.spec.md 中之**英文**頁面名稱（如 login、announcement-list、delivery-points-summary）；可多個；若為跨頁面任務（如即時同步、審計）可寫「全部前台頁面」或「全部頁面（審計）」等
 - 責任範圍
 - 驗收標準
 - 備註

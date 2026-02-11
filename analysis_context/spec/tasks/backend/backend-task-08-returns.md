@@ -1,18 +1,22 @@
-# Task Summary
-提供退貨作業後端行為：退貨單列表與詳細查詢、狀態（未完成/已立單）、依狀態限制可否編輯、整合運務 App 與後台來源。
+# 任務摘要
+實作退貨單列表（含篩選與廠區規則）、彙整退貨單、退貨單/彙整單 CRUD、與後台/運務 APP 資料連動及退貨配送單相關邏輯。
 
-# Source Spec
-- analysis_context/spec/00-overview.spec.md（退貨作業管理）
-- analysis_context/spec/03-backend.spec.md（退貨作業責任、來源整合、編輯規則）
+# 來源 Spec
+- 00-overview.spec.md（退貨作業管理）
+- 03-backend.spec.md（退貨作業、後台管理退貨單、後台既有功能擴增）
 
-# Responsibility
-- Backend：退貨單資料整合、查詢與狀態/編輯規則。
+# 對應頁面名稱
+- return-list、return-slip-edit、consolidated-slip-edit、return-slip-view、consolidated-slip-view、return-slip-admin、delivery-order-admin
 
-# Acceptance Criteria
-- 後端提供退貨單列表查詢，回傳必要欄位與狀態（未完成/已立單），並支援篩選。
-- 後端提供退貨單詳細資訊查詢。
-- 未完成狀態允許修改退貨商品內容；已立單狀態限制為唯讀。
-- 退貨單資料集合整合運務 App 與後台產生的資料來源。
+# 責任範圍
+- 退貨單列表：資料來源為運務 APP 退貨單、後台退貨單、前後台彙整單；直退/回廠退依廠區過濾；支援關鍵字、建立日期、客戶、溫層、類型、狀態篩選。
+- 彙整：僅未完成且同客戶簡稱、同溫層；彙整單號 BA+yyyymmdd+00001；被合併者狀態已彙整；與後台即時同步。
+- 退貨單/彙整單編輯與查看、儲存與後台連動；檔案上傳限 PDF/PNG/JPG。
+- 直退時後台產生配送單、退貨單狀態已立單；配送單管理作業類型、退貨作業新增頁與選擇退貨單燈箱、送出驗證、彙整單狀態更新、退貨配送單號回寫。
 
-# Notes
-- 退貨單狀態轉移條件（何時變更為已立單）在 spec 中未明確定義。
+# 驗收標準
+- 列表與編輯/查看行為符合 Spec；彙整規則與單號正確；前後台資料一致。
+- 直退與退貨配送單建立流程正確。
+
+# 備註
+- 退貨單號 B+yyyymmdd+00001 等規則依 PRD；與既有配送單管理整合。

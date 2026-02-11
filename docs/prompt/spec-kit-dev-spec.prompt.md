@@ -119,6 +119,21 @@ analysis_context/spec/
 
 ---
 
+## 延伸產出：API 推導（步驟五）
+
+在 00–03 四份規格產出完成後，**僅以該四份為輸入**，推導必要 API 清單：
+
+- **輸入**：`00-overview.spec.md`、`01-routing-pages.spec.md`、`02-frontend.spec.md`、`03-backend.spec.md`
+- **產出**：`analysis_context/spec/04-api-inferred.spec.md`
+- **規則**：
+  - 僅從上述四份 spec 推測「前端／運務 APP／後台」所需之 API 與即時通道
+  - 不新增規格書未提及之功能；endpoint 路徑與 HTTP 方法為建議，可依實作調整
+  - 每個 API 標註推導依據（對應 01／02／03 章節）
+
+產出順序：先完成 00 → 01 → 02 → 03，再產出 04-api-inferred.spec.md。
+
+---
+
 # 檔案職責（務必遵守）
 
 ## 00-overview.spec.md
@@ -134,7 +149,7 @@ analysis_context/spec/
 ## 01-routing-pages.spec.md
 - 依 PRD／Epics 中「明確存在的頁面」整理
 - 每個頁面需包含：
-  - 頁面名稱
+  - 頁面名稱（限英文，如 login、announcement-list、delivery-points-summary）
   - 來源（PRD 章節／Epic）
   - 包含的功能區塊
   - 進入條件（如登入）
@@ -195,6 +210,8 @@ analysis_context/spec/
 - 採用「規格說明」語氣，不是教學文
 - 不重複貼回原始文件全文
 - 若多份文件間出現衝突，請標示「需釐清」
+- **01-routing-pages.spec.md**：每個頁面之「頁面名稱」欄位**僅填英文**（如 login、announcement-list），不得使用中文；供路由／識別與後續 Task 對應使用
+- **04-api-inferred.spec.md**（延伸產出）：僅以 00–03 為依據推導，不新增規格未提及之 API；每個 API 標註推導依據（對應 01／02／03 章節）
 
 ---
 

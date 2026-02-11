@@ -2,9 +2,10 @@
 
 本 SOP 的目標：讓任何 Agent 在相同 Input 下，都能產出「相同檔案集合」且遵守相同的決策規則（不發明、不補完、不重設計）。
 
-此 SOP 僅適用於 spec-kit 兩個流程：
+此 SOP 僅適用於 spec-kit 三個流程：
 1) 產出 Spec（dev-spec）
-2) 由 Spec 拆分 Tasks（task-breakdown）
+2) 由 00–03 推導 API 清單（04-api-inferred）
+3) 由 Spec 拆分 Tasks（task-breakdown）
 
 ---
 
@@ -12,7 +13,7 @@
 
 執行時一律以以下兩份 Prompt 為最終依據（若 SOP 與 Prompt 衝突，以 Prompt 為準）：
 - `docs/prompt/spec-kit-dev-spec.prompt.md`
-- `docs/prompt/spec-kit.task-breakdown.prompt.md`
+- `docs/prompt/spec-kit-task-breakdown.prompt.md`
 
 ---
 
@@ -30,6 +31,8 @@ Task 拆分階段的唯一事實來源：
 - `analysis_context/spec/01-routing-pages.spec.md`
 - `analysis_context/spec/02-frontend.spec.md`
 - `analysis_context/spec/03-backend.spec.md`
+
+API 推導（04）的輸入邊界：僅上述 00–03 四份；產出為 `04-api-inferred.spec.md`。
 
 ### 1.2 禁止行為（Hard No）
 - 不得新增：功能、頁面、流程、角色責任、非規格中存在的規則。
@@ -71,18 +74,25 @@ Task 拆分階段的唯一事實來源：
 3) 02-frontend
 4) 03-backend
 
-H1 標題（強制，檔案第一行）：
-- `00-overview.spec.md`：`# 00 Overview`
-- `01-routing-pages.spec.md`：`# 01 Routing & Pages`
-- `02-frontend.spec.md`：`# 02 Frontend Behavior`
-- `03-backend.spec.md`：`# 03 Backend Responsibility`
+H1 標題（強制，檔案第一行，以 dev-spec 為準）：
+- `00-overview.spec.md`：`# 00 總覽`
+- `01-routing-pages.spec.md`：`# 01 路由與頁面`
+- `02-frontend.spec.md`：`# 02 前端行為`
+- `03-backend.spec.md`：`# 03 後端責任`
 
 ### 2.3 Spec 品質閘門（必過）
 - 檔案數量 = 4（不多不少）
 - 檔名與路徑正確
-- 每份檔案第一行 H1 正確
+- 每份檔案第一行 H1 正確（以 dev-spec 檔案標頭規則為準：00 總覽、01 路由與頁面、02 前端行為、03 後端責任）
+- 01-routing-pages.spec.md 中每個頁面之「頁面名稱」欄位**限英文**（如 login、delivery-points-summary）
 - 不包含任何技術實作細節（endpoint/DB/框架）
 - 所有不確定資訊皆標為「未定義/需釐清」
+
+### 2.4 延伸：推導 API 清單（04-api-inferred）
+- **前置條件**：00–03 四份 spec 已產出且位於 `analysis_context/spec/`。
+- **輸入**：僅使用 `00-overview.spec.md`、`01-routing-pages.spec.md`、`02-frontend.spec.md`、`03-backend.spec.md`。
+- **產出**：`analysis_context/spec/04-api-inferred.spec.md`
+- **規則**：僅從四份 spec 推測必要 API 與即時通道；不新增規格未提及之功能；每個 API 標註推導依據（對應 01/02/03 章節）。
 
 ---
 
@@ -102,11 +112,12 @@ Tasks 必須輸出至：
   - `running-number` 建議 2 位數遞增（01, 02, ...）
 
 每個 Task 檔案必含章節（強制，且標題需完全一致）：
-- `# Task Summary`
-- `# Source Spec`
-- `# Responsibility`
-- `# Acceptance Criteria`
-- `# Notes`
+- `# 任務摘要`
+- `# 來源 Spec`
+- `# 對應頁面名稱`（列出該任務對應之 01-routing-pages 頁面英文名稱，可多個；跨頁面任務可寫「全部前台頁面」或「全部頁面（審計）」等）
+- `# 責任範圍`
+- `# 驗收標準`
+- `# 備註`
 
 ### 3.3 Task 拆分原則（讓輸出可排 Sprint）
 - 每個 Task 必須可指派給單一角色/單一工程師。
@@ -116,7 +127,7 @@ Tasks 必須輸出至：
 ### 3.4 Tasks 品質閘門（必過）
 - frontend/backend 目錄存在
 - 檔名符合規則且 running number 不重複
-- 每檔五個章節齊全
+- 每檔六個章節齊全（含「對應頁面名稱」；頁面名稱為英文，與 01-routing-pages.spec.md 一致）
 - 不包含 spec 之外的新功能
 
 ---
@@ -128,7 +139,7 @@ Tasks 必須輸出至：
 ```text
 請嚴格依下列 Prompt 執行：
 - @docs/prompt/spec-kit-dev-spec.prompt.md
-- @docs/prompt/spec-kit.task-breakdown.prompt.md
+- @docs/prompt/spec-kit-task-breakdown.prompt.md
 
 執行規則（強制）：
 - 只能使用 prompt 指定的 Input Boundary 當事實來源
@@ -138,6 +149,7 @@ Tasks 必須輸出至：
 
 執行流程：
 1) 先產出 spec（4 份、依順序、H1 必須正確）
-2) 再由 spec 拆分 tasks（frontend/ backend，檔名與章節必須正確）
-3) 最後自我檢查：檔案數量/路徑/檔名/H1/章節齊全
+2) 依 00–03 推導 API 清單，產出 04-api-inferred.spec.md（僅以四份 spec 為依據，不新增功能）
+3) 再由 spec 拆分 tasks（frontend/ backend，檔名與六章節必須正確，含對應頁面名稱且為英文）
+4) 最後自我檢查：檔案數量/路徑/檔名/H1/章節/對應頁面名稱齊全
 ```

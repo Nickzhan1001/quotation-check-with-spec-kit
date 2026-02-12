@@ -1,0 +1,22 @@
+{
+  "name": "quotation-check-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "typecheck": "nuxt typecheck"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.11.2",
+    "nuxt": "^3.17.7",
+    "pinia": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "sass": "^1.86.3",
+    "typescript": "^5.9.3"
+  }
+}
